@@ -3,91 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXVOID // THE DECREE</title>
+    <title>LUXVOID // DASHBOARD</title>
     <style>
-        /* Cinematic Background using your HD Logo */
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background: url('LUXVOID.JPG') no-repeat center center fixed; 
-            background-size: cover;
-            font-family: 'Courier New', monospace;
-            color: #00ffcc;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+        body { margin: 0; padding: 0; background: url('LUXVOID.JPG') no-repeat center center fixed; background-size: cover; font-family: 'Courier New', monospace; color: #00ffcc; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); backdrop-filter: blur(20px); z-index: 1; }
+        
+        .container { position: relative; z-index: 10; width: 90%; max-width: 500px; text-align: center; padding-top: 40px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
+        
+        #logo-main { width: 120px; border-radius: 25%; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); animation: float 6s infinite ease-in-out; margin-bottom: 20px; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotateY(0deg); } 50% { transform: translateY(-10px) rotateY(10deg); } }
 
-        /* Deep Blur Overlay to merge background and content */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
-            backdrop-filter: blur(18px);
-            z-index: 1;
-        }
+        /* Module System */
+        .module { background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 15px; padding: 20px; text-align: left; display: none; height: 50vh; overflow-y: auto; backdrop-filter: blur(10px); }
+        .module.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-        }
+        h2 { font-size: 1rem; color: #fff; text-transform: uppercase; border-bottom: 1px solid #00ffcc33; padding-bottom: 5px; }
+        p { font-size: 0.9rem; line-height: 1.5; color: #b0b0b0; }
+        .status-glow { color: #00ffcc; font-weight: bold; text-shadow: 0 0 5px #00ffcc; }
 
-        /* The "Fused Core" Logo Design */
-        #logo-main {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            /* Softens the square edges into a premium 'Squircle' */
-            border-radius: 25%; 
-            /* Merges the logo with the background glow */
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.5);
-            /* 3D Floating & Shimmer Animation */
-            animation: floatAndShimmer 6s infinite ease-in-out;
-            margin-bottom: 30px;
-            filter: brightness(1.1) contrast(1.1);
-        }
-
-        @keyframes floatAndShimmer {
-            0%, 100% { transform: translateY(0px) rotateY(0deg); filter: drop-shadow(0 0 10px #00ffcc); }
-            50% { transform: translateY(-12px) rotateY(15deg); filter: drop-shadow(0 0 25px #00ffcc); }
-        }
-
-        /* Futuristic Glassmorphism Box */
-        .manifesto-box {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(12px);
-            text-align: left;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-            display: none;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        /* Scrollbar styling for the 'Deep Dive' */
-        .manifesto-box::-webkit-scrollbar { width: 4px; }
-        .manifesto-box::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 10px; }
-
-        .boot-loader {
-            font-weight: bold;
-            font-size: 1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            text-shadow: 0 0 8px #00ffcc;
-        }
-
-        h2 { font-size: 1.1rem; color: #fff; margin-top: 25px; letter-spacing: 1px; }
-        p { font-size: 0.95rem; line-height: 1.6; color: #b0b0b0; margin-bottom: 15px; }
-        strong { color: #00ffcc; }
-
+        /* Navigation Bar */
+        .nav-bar { position: relative; z-index: 20; width: 100%; background: rgba(0, 0, 0, 0.8); border-top: 1px solid #00ffcc44; display: flex; justify-content: space-around; padding: 15px 0; backdrop-filter: blur(15px); }
+        .nav-item { color: #00ffcc; font-size: 0.7rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+        .nav-item.active { opacity: 1; text-shadow: 0 0 10px #00ffcc; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -95,30 +33,48 @@
 <div class="overlay"></div>
 
 <div class="container">
-    <img src="LUXVOID.JPG" id="logo-main" alt="LUXVOID CORE">
-    
-    <div id="boot" class="boot-loader">> ESTABLISHING SECURE LINK...</div>
+    <img src="LUXVOID.JPG" id="logo-main" alt="LUXVOID">
 
-    <div class="manifesto-box" id="content">
-        <h2>I. THE END OF VAPORWARE</h2>
-        <p>Most digital assets are born from nothing. <strong>Luxvoid</strong> is born from the forge. We reject the "infinite supply" model. Value must be earned, physically held, and industrially anchored.</p>
-        
-        <h2>II. PROOF OF PRODUCTION</h2>
-        <p>The 88,888 $VOID supply is a hard cap. The only way to introduce $VOID is to manufacture a physical Luxvoid artifact. No "team dumps" or "private seeds."</p>
-        
-        <h2>III. RECIPROCAL SCARCITY</h2>
-        <p>A Veblen-Utility ecosystem. The Buyer gets a <strong>99.9% pure bullion hedge</strong>; the Network gets committed liquidity.</p>
-        
-        <h2>IV. THE DIAMOND HANDS DECREE</h2>
-        <p>We reward the patient. Through "Maturity Lock" and "Monthly Pulse" protocols, we ensure $VOID stays in the hands of those who value the art.</p>
+    <div id="decree" class="module active">
+        <h2>[THE MANIFESTO]</h2>
+        <p><span class="status-glow">> I. END OF VAPORWARE:</span> Industrially anchored value.</p>
+        <p><span class="status-glow">> II. PROOF OF PRODUCTION:</span> 88,888 $VOID Hard Cap.</p>
+        <p><span class="status-glow">> III. RECIPROCAL SCARCITY:</span> Veblen-Utility ecosystem.</p>
+        <p><span class="status-glow">> IV. DIAMOND HANDS:</span> Rewarding the patient.</p>
+    </div>
+
+    <div id="intel" class="module">
+        <h2>[MARKET_INTEL.LOG]</h2>
+        <p><span class="status-glow">> STRATEGIC ASSET:</span> Copper.</p>
+        <p>The US has declared copper a rare metal. By 2030, global production versus demand will hit a critical inverse.</p>
+        <p>Your physical core is a hedge against the 2030 scarcity threshold.</p>
+    </div>
+
+    <div id="ledger" class="module">
+        <h2>[SENTINEL_LEDGER]</h2>
+        <p><span class="status-glow">> STATUS:</span> Authenticoid Active.</p>
+        <p><span class="status-glow">> COMPOSITION:</span> 1oz Pure Elemental Core.</p>
+        <p><span class="status-glow">> SUPPLY:</span> 888 Sentinels.</p>
+        <p>This chip acts as your Proof of Production certificate.</p>
     </div>
 </div>
 
+<div class="nav-bar">
+    <div class="nav-item active" onclick="showModule('decree', this)">Decree</div>
+    <div class="nav-item" onclick="showModule('intel', this)">Intel</div>
+    <div class="nav-item" onclick="showModule('ledger', this)">Ledger</div>
+</div>
+
 <script>
-    setTimeout(() => {
-        document.getElementById('boot').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-    }, 2800);
+    function showModule(moduleId, element) {
+        // Hide all modules
+        document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+        // Show selected module
+        document.getElementById(moduleId).classList.add('active');
+        // Update nav styling
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        element.classList.add('active');
+    }
 </script>
 
 </body>
