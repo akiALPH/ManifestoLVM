@@ -3,36 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXVOID // THE DECREE</title>
+    <title>LUXVOID // TERMINAL</title>
     <style>
-        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: 90vh; }
-        .glitch-text { animation: pulse 2s infinite; font-weight: bold; letter-spacing: 2px; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        .manifesto-body { display: none; max-width: 600px; border-left: 2px solid #00ffcc; padding-left: 20px; margin-top: 20px; color: #fff; }
-        .line { margin-bottom: 15px; opacity: 0; animation: fadeIn 0.5s forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
+        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 20px; overflow-x: hidden; }
+        /* CRT Scanline Effect */
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+        
+        .container { max-width: 600px; margin: auto; text-align: center; }
+        
+        /* Pulse Animation for Logo */
+        #logo { width: 150px; filter: drop-shadow(0 0 10px #00ffcc); animation: breathe 4s infinite ease-in-out; margin-bottom: 20px; }
+        @keyframes breathe { 0%, 100% { opacity: 0.7; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
+
+        .terminal-text { text-align: left; border-left: 2px solid #00ffcc; padding-left: 15px; display: none; }
+        .glitch { animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        h2 { font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        p { font-size: 0.85rem; line-height: 1.6; color: #d4d4d4; }
     </style>
 </head>
 <body>
-    <div id="boot">
-        <p class="glitch-text">> INITIALIZING VOID_PROTOCOL...</p>
-        <p class="glitch-text">> LOADING ENCRYPTED MANIFESTO...</p>
-        <p class="glitch-text">> STATUS: 99.9% PURITY CONFIRMED.</p>
-    </div>
+    <div class="container">
+        <img src="LUXVOID.jpg" id="LUXVOID" alt="Luxvoid Core">
+        
+        <div id="boot-sequence">
+            <p class="glitch">> ACCESSING VOID_PROTOCOL...</p>
+            <p class="glitch">> DECRYPTING MANIFESTO...</p>
+        </div>
 
-    <div class="manifesto-body" id="main-content">
-        <h1>THE MANIFESTO</h1>
-        <div class="line" style="animation-delay: 1s;"><strong>I. THE END OF VAPORWARE:</strong> Value must be earned, physically held, and industrially anchored.</div>
-        <div class="line" style="animation-delay: 2s;"><strong>II. PROOF OF PRODUCTION:</strong> No team dumps. No infinite minting. We create products.</div>
-        <div class="line" style="animation-delay: 3s;"><strong>III. RECIPROCAL SCARCITY:</strong> A Veblen-Utility ecosystem for the 888 Sentinels.</div>
-        <div class="line" style="animation-delay: 4s;"><strong>IV. DIAMOND HANDS DECREE:</strong> We reward the patient. We bring the money home.</div>
+        <div class="terminal-text" id="manifesto-content">
+            <h2>I. THE END OF VAPORWARE</h2>
+            <p>Most digital assets are born from nothing. Luxvoid is born from the forge. Value must be earned, physically held, and industrially anchored.</p>
+            
+            <h2>II. PROOF OF PRODUCTION</h2>
+            <p>The 88,888 $VOID supply is a hard cap. The only way to introduce $VOID is to manufacture a physical Luxvoid artifact.</p>
+            
+            <h2>III. RECIPROCAL SCARCITY</h2>
+            <p>We are a Veblen-Utility ecosystem. The Buyer gets a 99.9% pure bullion hedge; the Brand gets a global tribe of 888 Sentinels.</p>
+            
+            <h2>IV. THE DIAMOND HANDS DECREE</h2>
+            <p>We reward the patient through Maturity Lock and Monthly Pulse protocols. We bring the money home.</p>
+        </div>
     </div>
 
     <script>
         setTimeout(() => {
-            document.getElementById('boot').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }, 3000); // 3 second boot sequence
+            document.getElementById('boot-sequence').style.display = 'none';
+            document.getElementById('manifesto-content').style.display = 'block';
+        }, 2500);
     </script>
 </body>
 </html>
