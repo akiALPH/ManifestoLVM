@@ -3,75 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXVOID // DASHBOARD</title>
+    <title>LUXVOID // THE GATE</title>
     <style>
         body { margin: 0; padding: 0; background: url('LUXVOID.JPG') no-repeat center center fixed; background-size: cover; font-family: 'Courier New', monospace; color: #00ffcc; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); backdrop-filter: blur(20px); z-index: 1; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 100%); backdrop-filter: blur(25px); z-index: 1; }
         
-        .container { position: relative; z-index: 10; width: 90%; max-width: 500px; text-align: center; padding-top: 40px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
+        .container { position: relative; z-index: 10; width: 90%; max-width: 500px; text-align: center; padding-top: 40px; display: flex; flex-direction: column; align-items: center; height: 100%; }
         
-        #logo-main { width: 120px; border-radius: 25%; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); animation: float 6s infinite ease-in-out; margin-bottom: 20px; }
-        @keyframes float { 0%, 100% { transform: translateY(0px) rotateY(0deg); } 50% { transform: translateY(-10px) rotateY(10deg); } }
+        #logo-main { width: 120px; border-radius: 25%; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); margin-bottom: 20px; animation: breathe 4s infinite ease-in-out; }
+        @keyframes breathe { 0%, 100% { opacity: 0.8; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
-        /* Module System */
-        .module { background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 15px; padding: 20px; text-align: left; display: none; height: 50vh; overflow-y: auto; backdrop-filter: blur(10px); }
-        .module.active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* GATEKEEPER UI */
+        #gatekeeper { position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .gate-btn { border: 1px solid #00ffcc; padding: 18px 35px; margin: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 3px; transition: 0.4s; width: 280px; font-weight: bold; border-radius: 5px; }
+        .gate-btn:hover { background: #00ffcc; color: black; box-shadow: 0 0 30px #00ffcc; transform: scale(1.05); }
+        
+        /* The "Exit" styling */
+        .leave-btn { border: 1px solid #444; color: #666; font-size: 0.7rem; margin-top: 30px; width: 180px; border-radius: 0; }
+        .leave-btn:hover { border: 1px solid #ff0055; color: #ff0055; box-shadow: 0 0 10px #ff0055; }
 
-        h2 { font-size: 1rem; color: #fff; text-transform: uppercase; border-bottom: 1px solid #00ffcc33; padding-bottom: 5px; }
-        p { font-size: 0.9rem; line-height: 1.5; color: #b0b0b0; }
-        .status-glow { color: #00ffcc; font-weight: bold; text-shadow: 0 0 5px #00ffcc; }
+        /* DASHBOARD */
+        #dashboard { display: none; width: 100%; }
+        .module { background: rgba(0, 0, 0, 0.75); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 15px; padding: 25px; text-align: left; height: 50vh; overflow-y: auto; backdrop-filter: blur(15px); display: none; }
+        .module.active { display: block; }
 
-        /* Navigation Bar */
-        .nav-bar { position: relative; z-index: 20; width: 100%; background: rgba(0, 0, 0, 0.8); border-top: 1px solid #00ffcc44; display: flex; justify-content: space-around; padding: 15px 0; backdrop-filter: blur(15px); }
-        .nav-item { color: #00ffcc; font-size: 0.7rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; opacity: 0.6; transition: 0.3s; }
-        .nav-item.active { opacity: 1; text-shadow: 0 0 10px #00ffcc; font-weight: bold; }
+        /* NAV */
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.85); border-top: 1px solid #00ffcc33; display: none; justify-content: space-around; padding: 20px 0; z-index: 20; }
+        .nav-item { color: #00ffcc; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: 0.3s; }
+        .nav-item.active { opacity: 1; text-shadow: 0 0 15px #00ffcc; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
 <div class="overlay"></div>
 
-<div class="container">
+<div id="gatekeeper">
+    <p style="letter-spacing: 6px; opacity: 0.5; font-size: 0.7rem;">[ INITIALIZING SECURE HANDSHAKE ]</p>
+    <h1 style="font-size: 1.1rem; margin-bottom: 50px; color: #fff; letter-spacing: 2px;">ASCEND TO THE INNER CIRCLE?</h1>
+    
+    <div class="gate-btn" onclick="enterFamily()">ENTER SOVEREIGN VAULT</div>
+    
+    <div class="gate-btn leave-btn" onclick="leaveFamily()">LEAVE THE VOID</div>
+</div>
+
+<div class="container" id="main-ui" style="display:none;">
     <img src="LUXVOID.JPG" id="logo-main" alt="LUXVOID">
-
-    <div id="decree" class="module active">
-        <h2>[THE MANIFESTO]</h2>
-        <p><span class="status-glow">> I. END OF VAPORWARE:</span> Industrially anchored value.</p>
-        <p><span class="status-glow">> II. PROOF OF PRODUCTION:</span> 88,888 $VOID Hard Cap.</p>
-        <p><span class="status-glow">> III. RECIPROCAL SCARCITY:</span> Veblen-Utility ecosystem.</p>
-        <p><span class="status-glow">> IV. DIAMOND HANDS:</span> Rewarding the patient.</p>
-    </div>
-
-    <div id="intel" class="module">
-        <h2>[MARKET_INTEL.LOG]</h2>
-        <p><span class="status-glow">> STRATEGIC ASSET:</span> Copper.</p>
-        <p>The US has declared copper a rare metal. By 2030, global production versus demand will hit a critical inverse.</p>
-        <p>Your physical core is a hedge against the 2030 scarcity threshold.</p>
-    </div>
-
-    <div id="ledger" class="module">
-        <h2>[SENTINEL_LEDGER]</h2>
-        <p><span class="status-glow">> STATUS:</span> Authenticoid Active.</p>
-        <p><span class="status-glow">> COMPOSITION:</span> 1oz Pure Elemental Core.</p>
-        <p><span class="status-glow">> SUPPLY:</span> 888 Sentinels.</p>
-        <p>This chip acts as your Proof of Production certificate.</p>
+    
+    <div id="dashboard">
+        <div id="decree" class="module active">
+            <h2 style="color: #00ffcc;">[ THE DECREE ]</h2>
+            <p>I. THE END OF VAPORWARE</p>
+            <p>II. PROOF OF PRODUCTION</p>
+            <p>III. RECIPROCAL SCARCITY</p>
+            <p>IV. DIAMOND HANDS DECREE</p>
+        </div>
+        <div id="intel" class="module">
+            <h2 style="color: #00ffcc;">[ MARKET INTEL ]</h2>
+            <p>US Rare Metal Status confirmed. 2030 production inversion imminent. Your core is the anchor against inflation.</p>
+        </div>
+        <div id="ledger" class="module">
+            <h2 style="color: #00ffcc;">[ SENTINEL ROADMAP ]</h2>
+            <p>> 888 Sentinels authorized.</p>
+            <p>> Maturity Lock: Active Protocol.</p>
+            <p>> Monthly Pulse: Rewarding the patient.</p>
+        </div>
     </div>
 </div>
 
-<div class="nav-bar">
+<div class="nav-bar" id="navbar">
     <div class="nav-item active" onclick="showModule('decree', this)">Decree</div>
     <div class="nav-item" onclick="showModule('intel', this)">Intel</div>
-    <div class="nav-item" onclick="showModule('ledger', this)">Ledger</div>
+    <div class="nav-item" onclick="showModule('ledger', this)">Roadmap</div>
 </div>
 
 <script>
+    function enterFamily() {
+        document.getElementById('gatekeeper').style.display = 'none';
+        document.getElementById('main-ui').style.display = 'flex';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('navbar').style.display = 'flex';
+    }
+
+    function leaveFamily() {
+        document.body.innerHTML = "<div style='background:black; color:#444; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:monospace; text-align:center;'>CONNECTION TERMINATED.<br><br><span style='font-size:0.6rem; opacity:0.3;'>YOU HAVE CHOSEN OBLIVION.</span></div>";
+    }
+
     function showModule(moduleId, element) {
-        // Hide all modules
         document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
-        // Show selected module
         document.getElementById(moduleId).classList.add('active');
-        // Update nav styling
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         element.classList.add('active');
     }
