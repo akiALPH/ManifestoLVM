@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUXVOID // TERMINAL</title>
     <style>
-        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 20px; overflow-x: hidden; }
-        /* CRT Scanline Effect */
-        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 15px; overflow-x: hidden; }
         
-        .container { max-width: 600px; margin: auto; text-align: center; }
+        /* Scanline Overlay */
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); z-index: 5; background-size: 100% 3px, 3px 100%; pointer-events: none; }
         
-        /* Pulse Animation for Logo */
-        #logo { width: 150px; filter: drop-shadow(0 0 10px #00ffcc); animation: breathe 4s infinite ease-in-out; margin-bottom: 20px; }
-        @keyframes breathe { 0%, 100% { opacity: 0.7; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
+        .container { max-width: 500px; margin: auto; text-align: center; padding-top: 20px; }
+        
+        /* Logo: Now scaled for mobile */
+        #logo { width: 45%; max-width: 180px; height: auto; filter: drop-shadow(0 0 10px #00ffcc); animation: breathe 4s infinite ease-in-out; margin-bottom: 30px; }
+        @keyframes breathe { 0%, 100% { opacity: 0.8; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1.02); } }
 
-        .terminal-text { text-align: left; border-left: 2px solid #00ffcc; padding-left: 15px; display: none; }
-        .glitch { animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        h2 { font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
-        p { font-size: 0.85rem; line-height: 1.6; color: #d4d4d4; }
+        /* Text: Increased for readability */
+        .terminal-text { text-align: left; border-left: 3px solid #00ffcc; padding-left: 20px; display: none; margin-bottom: 50px; }
+        .glitch { font-weight: bold; font-size: 1.1rem; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        
+        h2 { font-size: 1.3rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-top: 30px; text-shadow: 0 0 5px #00ffcc; }
+        p { font-size: 1.05rem; line-height: 1.5; color: #d4d4d4; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="LUXVOID.JPG" id="LUXVOID" alt="Luxvoid Core">
+        <img src="LUXVOID.JPG" id="logo" alt="Luxvoid Core">
         
         <div id="boot-sequence">
-            <p class="glitch">> ACCESSING VOID_PROTOCOL...</p>
-            <p class="glitch">> DECRYPTING MANIFESTO...</p>
+            <p class="glitch">> INITIALIZING VOID_PROTOCOL...</p>
+            <p class="glitch">> DECRYPTING DATA STREAM...</p>
         </div>
 
         <div class="terminal-text" id="manifesto-content">
@@ -50,7 +53,7 @@
         setTimeout(() => {
             document.getElementById('boot-sequence').style.display = 'none';
             document.getElementById('manifesto-content').style.display = 'block';
-        }, 2500);
+        }, 2000);
     </script>
 </body>
 </html>
