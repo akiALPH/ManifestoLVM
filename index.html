@@ -8,65 +8,83 @@
         :root { --neon: #00ffcc; --dark: #050505; }
         body, html { margin: 0; padding: 0; background: #000; font-family: 'Helvetica Neue', sans-serif; color: white; height: 100vh; overflow: hidden; }
         
-        /* Industrial Copper Ticker */
-        .ticker-wrap { position: fixed; top: 0; width: 100%; background: rgba(0, 255, 204, 0.1); border-bottom: 1px solid var(--neon); z-index: 2000; padding: 5px 0; font-size: 0.6rem; letter-spacing: 2px; }
-        .ticker { display: flex; white-space: nowrap; animation: marquee 20s linear infinite; }
+        /* THE FORGE BACKGROUND: Restored HD Blur */
+        .bg-layer { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: url('LUXVOID.JPG') no-repeat center center fixed; 
+            background-size: cover; opacity: 0.4; filter: blur(15px); z-index: -1; 
+        }
+        .overlay-dim { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); z-index: 0; 
+        }
+
+        /* INDUSTRIAL COPPER TICKER */
+        .ticker-wrap { position: fixed; top: 0; width: 100%; background: rgba(0, 255, 204, 0.1); border-bottom: 1px solid var(--neon); z-index: 2000; padding: 8px 0; backdrop-filter: blur(5px); }
+        .ticker { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; font-size: 0.6rem; letter-spacing: 2px; color: var(--neon); }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Background Layer */
-        .bg-img { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: blur(15px) grayscale(100%); z-index: -1; }
+        /* CHAPTER 0: THE GATE (Logo-First Identity) */
+        #gatekeeper { position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transition: 0.8s cubic-bezier(0.8, 0, 0.2, 1); }
+        #logo-gate { 
+            width: 160px; border-radius: 25%; filter: drop-shadow(0 0 20px var(--neon)); 
+            margin-bottom: 40px; animation: float 6s infinite ease-in-out; 
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotateY(0); } 50% { transform: translateY(-15px) rotateY(10deg); } }
         
-        /* Initialization Screen (Logo Always Visible) */
-        #gatekeeper { position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transition: 0.8s ease-in-out; }
-        #logo-gate { width: 160px; border-radius: 20%; filter: drop-shadow(0 0 20px var(--neon)); margin-bottom: 40px; }
-        
-        .btn-prime { border: 1px solid var(--neon); padding: 18px 36px; color: var(--neon); cursor: pointer; letter-spacing: 4px; font-size: 0.7rem; background: transparent; transition: 0.4s; }
-        .btn-prime:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px var(--neon); }
+        .btn-prime { 
+            border: 1px solid var(--neon); padding: 20px 40px; color: var(--neon); 
+            cursor: pointer; letter-spacing: 5px; font-size: 0.75rem; background: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(10px); transition: 0.4s; font-weight: bold; 
+        }
+        .btn-prime:hover { background: var(--neon); color: #000; box-shadow: 0 0 40px var(--neon); transform: scale(1.05); }
 
-        /* Dashboard UI */
-        #dashboard { display: none; height: 100vh; flex-direction: column; padding: 60px 20px 20px; box-sizing: border-box; }
-        .art-viewport { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        
-        .panel { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 204, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 4px; display: none; width: 100%; max-width: 400px; }
+        /* CHAPTER 1: THE DASHBOARD (Glassmorphism Restored) */
+        #dashboard { display: none; height: 100vh; flex-direction: column; padding: 80px 20px 20px; box-sizing: border-box; position: relative; z-index: 10; }
+        .panel { 
+            background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(0, 255, 204, 0.2); 
+            backdrop-filter: blur(15px); padding: 30px; border-radius: 15px; display: none; 
+            width: 100%; max-width: 420px; margin: auto; box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
         .panel.active { display: block; animation: slideUp 0.5s ease-out; }
-        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* Nav Interface */
-        .nav { display: flex; gap: 10px; justify-content: center; padding: 20px 0; }
-        .nav-btn { background: none; border: 1px solid #333; color: #777; padding: 12px 24px; font-size: 0.6rem; cursor: pointer; letter-spacing: 2px; transition: 0.3s; }
-        .nav-btn.active { border-color: var(--neon); color: var(--neon); box-shadow: 0 0 10px var(--neon); }
+        /* NAVIGATION INTERFACE */
+        .nav { display: flex; gap: 15px; justify-content: center; padding: 20px 0; z-index: 100; }
+        .nav-btn { background: rgba(0,0,0,0.8); border: 1px solid #333; color: #666; padding: 12px 24px; font-size: 0.65rem; cursor: pointer; letter-spacing: 2px; transition: 0.3s; }
+        .nav-btn.active { border-color: var(--neon); color: var(--neon); box-shadow: 0 0 15px var(--neon); }
 
-        /* Static Exit */
-        #static-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://media.giphy.com/media/oEI9uWUicGLeE/giphy.gif'); opacity: 0; pointer-events: none; z-index: 3000; }
+        /* EXIT STATIC */
+        #static-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://media.giphy.com/media/oEI9uWUicGLeE/giphy.gif'); opacity: 0; pointer-events: none; z-index: 3000; mix-blend-mode: screen; }
     </style>
 </head>
 <body>
 
 <div id="static-overlay"></div>
+<div class="bg-layer"></div>
+<div class="overlay-dim"></div>
+
 <div class="ticker-wrap">
     <div class="ticker">
-        MARKET_WATCH: COPPER (HG) $4.28/LB [+1.2%] --- US RARE METAL STATUS: ACTIVE --- 2030 SUPPLY_INVERSION_CLOCK: T-MINUS 4 YEARS --- LUXVOID $VOID STATUS: SECURE
+        INDUSTRIAL_PULSE: COPPER (HG) $4.28/LB [+1.2%] --- US RARE METAL DESIGNATION: CLASS-A --- 2030 SCARCITY_CLOCK: T-MINUS 4 YEARS --- SENTINEL PROTOCOL: ACTIVE
     </div>
 </div>
 
-<img src="LUXVOID.JPG" class="bg-img" alt="bg">
-
 <div id="gatekeeper">
     <img src="LUXVOID.JPG" id="logo-gate" alt="Luxvoid Core">
-    <button class="btn-prime" onclick="initVault()">ASCEND TO INNER CIRCLE</button>
-    <div style="margin-top: 30px; font-size: 0.5rem; color: #444; cursor: pointer; text-decoration: underline;" onclick="terminate()">REJECT TRANSITION</div>
+    <button class="btn-prime" onclick="initVault()">ENTER SOVEREIGN VAULT</button>
+    <div style="margin-top: 35px; font-size: 0.55rem; color: #555; cursor: pointer; letter-spacing: 2px;" onclick="terminate()">[ REJECT TRANSITION ]</div>
 </div>
 
 <div id="dashboard">
-    <div class="art-viewport">
-        <div id="decree" class="panel active">
-            <p style="color:var(--neon); letter-spacing: 3px;">[ THE DECREE ]</p>
-            <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.8;">Value must be earned, physically held, and industrially anchored. Every $VOID in existence is a digital shadow of a physical 1oz elemental core.</p>
-        </div>
-        <div id="intel" class="panel">
-            <p style="color:var(--neon); letter-spacing: 3px;">[ MARKET INTEL ]</p>
-            <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.8;">The US has declared copper a rare metal. By 2030, production vs demand will reach critical inversion. Your core is the ultimate industrial hedge.</p>
-        </div>
+    <div id="decree" class="panel active">
+        <h2 style="color:var(--neon); letter-spacing: 4px; font-size: 1rem; margin-top: 0;">[ THE DECREE ]</h2>
+        <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.8;">Value must be earned, physically held, and industrially anchored. Every <strong>$VOID</strong> is a digital shadow of a physical 1oz elemental core.</p>
+    </div>
+    
+    <div id="intel" class="panel">
+        <h2 style="color:var(--neon); letter-spacing: 4px; font-size: 1rem; margin-top: 0;">[ MARKET INTEL ]</h2>
+        <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.8;">Copper is now a US designated rare metal. By 2030, production inversion will trigger a global scarcity threshold. Your core is the ultimate industrial anchor.</p>
     </div>
 
     <div class="nav">
@@ -85,10 +103,10 @@
     }
 
     function terminate() {
-        document.getElementById('static-overlay').style.opacity = '0.9';
+        document.getElementById('static-overlay').style.opacity = '0.5';
         setTimeout(() => {
-            document.body.innerHTML = "<div style='background:#000; color:#333; height:100vh; display:flex; justify-content:center; align-items:center; font-family:monospace;'>ACCESS_DENIED</div>";
-        }, 200);
+            document.body.innerHTML = "<div style='background:#000; color:#222; height:100vh; display:flex; justify-content:center; align-items:center; font-family:monospace; letter-spacing:10px;'>OBLIVION</div>";
+        }, 150);
     }
 
     function tab(id, btn) {
