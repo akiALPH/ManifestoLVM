@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXVOID // THE DECREE</title>
+    <style>
+        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: 90vh; }
+        .glitch-text { animation: pulse 2s infinite; font-weight: bold; letter-spacing: 2px; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        .manifesto-body { display: none; max-width: 600px; border-left: 2px solid #00ffcc; padding-left: 20px; margin-top: 20px; color: #fff; }
+        .line { margin-bottom: 15px; opacity: 0; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="boot">
+        <p class="glitch-text">> INITIALIZING VOID_PROTOCOL...</p>
+        <p class="glitch-text">> LOADING ENCRYPTED MANIFESTO...</p>
+        <p class="glitch-text">> STATUS: 99.9% PURITY CONFIRMED.</p>
+    </div>
+
+    <div class="manifesto-body" id="main-content">
+        <h1>THE MANIFESTO</h1>
+        <div class="line" style="animation-delay: 1s;"><strong>I. THE END OF VAPORWARE:</strong> Value must be earned, physically held, and industrially anchored.</div>
+        <div class="line" style="animation-delay: 2s;"><strong>II. PROOF OF PRODUCTION:</strong> No team dumps. No infinite minting. We create products.</div>
+        <div class="line" style="animation-delay: 3s;"><strong>III. RECIPROCAL SCARCITY:</strong> A Veblen-Utility ecosystem for the 888 Sentinels.</div>
+        <div class="line" style="animation-delay: 4s;"><strong>IV. DIAMOND HANDS DECREE:</strong> We reward the patient. We bring the money home.</div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('boot').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }, 3000); // 3 second boot sequence
+    </script>
+</body>
+</html>
