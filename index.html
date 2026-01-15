@@ -3,57 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXVOID // TERMINAL</title>
+    <title>LUXVOID // THE DECREE</title>
     <style>
-        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; padding: 15px; overflow-x: hidden; }
-        
-        /* Scanline Overlay */
-        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); z-index: 5; background-size: 100% 3px, 3px 100%; pointer-events: none; }
-        
-        .container { max-width: 500px; margin: auto; text-align: center; padding-top: 20px; }
-        
-        /* Logo: Now scaled for mobile */
-        #logo { width: 45%; max-width: 180px; height: auto; filter: drop-shadow(0 0 10px #00ffcc); animation: breathe 4s infinite ease-in-out; margin-bottom: 30px; }
-        @keyframes breathe { 0%, 100% { opacity: 0.8; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1.02); } }
+        /* The Background: Uses your HD logo as the blurred canvas */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: url('LUXVOID.JPG') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: 'Courier New', monospace;
+            color: #00ffcc;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-        /* Text: Increased for readability */
-        .terminal-text { text-align: left; border-left: 3px solid #00ffcc; padding-left: 20px; display: none; margin-bottom: 50px; }
-        .glitch { font-weight: bold; font-size: 1.1rem; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        
-        h2 { font-size: 1.3rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-top: 30px; text-shadow: 0 0 5px #00ffcc; }
-        p { font-size: 1.05rem; line-height: 1.5; color: #d4d4d4; margin-bottom: 20px; }
+        /* The Blur Overlay: Adds that mystery/futuristic depth */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Darken */
+            backdrop-filter: blur(15px); /* Cinematic Blur */
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* 3D Floating Logo */
+        #logo-main {
+            width: 140px;
+            height: auto;
+            filter: drop-shadow(0 0 15px #00ffcc);
+            animation: float 5s infinite ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-15px) rotateY(10deg); }
+        }
+
+        /* Glass Manifesto Box */
+        .manifesto-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden until boot sequence finishes */
+        }
+
+        .boot-loader {
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h2 { font-size: 1.1rem; color: #fff; margin-top: 20px; border-bottom: 1px solid #00ffcc33; padding-bottom: 5px; }
+        p { font-size: 0.95rem; line-height: 1.5; color: #d1d1d1; margin-bottom: 10px; }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="LUXVOID.JPG" id="logo" alt="Luxvoid Core">
+
+<div class="overlay"></div>
+
+<div class="container">
+    <img src="LUXVOID.JPG" id="logo-main" alt="LUXVOID CORE">
+    
+    <div id="boot" class="boot-loader">> INITIALIZING VOID_LINK...</div>
+
+    <div class="manifesto-box" id="content">
+        <h2>I. THE END OF VAPORWARE</h2>
+        <p>Most digital assets are born from nothing. Luxvoid is born from the forge.</p>
         
-        <div id="boot-sequence">
-            <p class="glitch">> INITIALIZING VOID_PROTOCOL...</p>
-            <p class="glitch">> DECRYPTING DATA STREAM...</p>
-        </div>
-
-        <div class="terminal-text" id="manifesto-content">
-            <h2>I. THE END OF VAPORWARE</h2>
-            <p>Most digital assets are born from nothing. Luxvoid is born from the forge. Value must be earned, physically held, and industrially anchored.</p>
-            
-            <h2>II. PROOF OF PRODUCTION</h2>
-            <p>The 88,888 $VOID supply is a hard cap. The only way to introduce $VOID is to manufacture a physical Luxvoid artifact.</p>
-            
-            <h2>III. RECIPROCAL SCARCITY</h2>
-            <p>We are a Veblen-Utility ecosystem. The Buyer gets a 99.9% pure bullion hedge; the Brand gets a global tribe of 888 Sentinels.</p>
-            
-            <h2>IV. THE DIAMOND HANDS DECREE</h2>
-            <p>We reward the patient through Maturity Lock and Monthly Pulse protocols. We bring the money home.</p>
-        </div>
+        <h2>II. PROOF OF PRODUCTION</h2>
+        <p>The 88,888 $VOID supply is a hard cap. No team dumps, no infinite minting.</p>
+        
+        <h2>III. RECIPROCAL SCARCITY</h2>
+        <p>A Veblen-Utility ecosystem for the global tribe of 888 Sentinels.</p>
+        
+        <h2>IV. THE DIAMOND HANDS DECREE</h2>
+        <p>We reward the patient. We bring the money home, and we keep it there.</p>
     </div>
+</div>
 
-    <script>
-        setTimeout(() => {
-            document.getElementById('boot-sequence').style.display = 'none';
-            document.getElementById('manifesto-content').style.display = 'block';
-        }, 2000);
-    </script>
+<script>
+    // Boot sequence timing
+    setTimeout(() => {
+        document.getElementById('boot').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    }, 2500);
+</script>
+
 </body>
 </html>
